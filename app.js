@@ -12,24 +12,21 @@ app.use(express.json());
 app.use(cookieParser());
 
 // MongoDB connection
-mongoose.connect('mongodb://127.0.0.1:27017/sessionAuth', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect('mongodb://127.0.0.1:27017/sessionAuth', {});
 
 // Session setup (with cookies)
 app.use(
-  session({
-    secret: 'mysecretkey',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/sessionAuth' }),
-    cookie: {
-      httpOnly: true,     // prevents client-side JS from reading cookie
-      secure: false,      // set `true` if using HTTPS
-      maxAge: 1000 * 60 * 60, // 1 hour
-    },
-  })
+    session({
+        secret: 'mysecretkey',
+        resave: false,
+        saveUninitialized: false,
+        store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/sessionAuth' }),
+        cookie: {
+            httpOnly: true, // prevents client-side JS from reading cookie
+            secure: false, // set `true` if using HTTPS
+            maxAge: 1000 * 60 * 60, // 1 hour
+        },
+    })
 );
 
 // Routes
